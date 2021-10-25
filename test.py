@@ -32,7 +32,7 @@ Plot
 Production
 Reception
  '''
-unwantedTags = ["From Wikipedia, the free encyclopedia" , "Jump to navigationJump to search", "Guest appearances", "Original air date", "Original air date", "Episode features" , "Episode chronology", "← Previous" , "Next →" , "List of episodes", "Contents" , "1	Plot", "2	Production" , "2.1	Alternate opening" , "3	Unproduced sequel","4	Cultural references" , "5	Reception", "6	Reruns" , "6.1	Pull from circulation" , "7	References","8	External links","Plot","Production","Reception"]
+unwantedTags = ["From Wikipedia, the free encyclopedia" , "Jump to navigationJump to search", "Guest appearances", "Original air date", "Original air date", "Episode features" , "Episode chronology", "← Previous" , "Next →" , "List of episodes", "Contents" , "1	Plot", "2	Production" , "2.1	Alternate opening" , "3	Unproduced sequel","4	Cultural references" , "5	Reception", "6	Reruns" , "6.1	Pull from circulation" , "7	References","8	External links","Plot","Production","Reception", "1", "2", "3", "4", "5", "6", "7", "8"]
 
 
 infilePath = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.2.txt"
@@ -43,8 +43,8 @@ with open(infilePath) as infile, open(outfilePath, "w") as outfile:
 	for line in infile:
 		if line.strip() in unwantedTags:
 			copy = False 
-			continue 
 		else:
+			copy = True
 			outfile.write(line)
 infile.close()
 outfile.close()
