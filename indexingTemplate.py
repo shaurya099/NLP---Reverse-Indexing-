@@ -17,6 +17,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
+from collections import OrderedDict
 
 #reading a file and storing it in an array 
 def readFile(infilePath):
@@ -71,7 +72,7 @@ def tokenLemmatization(wordTokens):
 	for tokens in wordTokens:
 		updatedWordTokens.append(lemmatizer.lemmatize(tokens))
 	return updatedWordTokens
-
+''''
 #Test
 textDoc = "The lazy fox is running and ran and runs[18]. !"
 print(removeReferences(textDoc))
@@ -108,18 +109,18 @@ for w in newTokens:
 		invertedIndex[w] = attributesList
 	else:
 		invertedIndex[w][1] += 1  
-
+'''
 def createInvertedIndexWithWordCount(wordTokens):
 	invertedIndex = {}
 	for w in wordTokens: 
 		if w not in invertedIndex.keys():
 			attributesList = []
 			#print(type(attributesList))
-			attributesList.append(wordTokens.index(w))
+			#attributesList.append(wordTokens.index(w))
 			attributesList.append(1)		
 			invertedIndex[w] = attributesList
 		else:
-			invertedIndex[w][1] += 1 
+			invertedIndex[w][0] += 1 
 	return invertedIndex
 
 def createInvertedIndexWithLocation(wordTokens):
@@ -128,13 +129,31 @@ def createInvertedIndexWithLocation(wordTokens):
 		if w not in invertedIndex.keys():
 			attributesList = []
 			#print(type(attributesList))
-			attributesList.append(wordTokens.index(w))	
+			attributesList.append("")	
 			invertedIndex[w] = attributesList
-		else:
+		if w in invertedIndex.keys():
 			index_pos_list = 0
 			index_pos_list = [ i for i in range(len(wordTokens)) if wordTokens[i] == w ]
 			invertedIndex[w].append(index_pos_list)	
 	return invertedIndex
 
-print(createInvertedIndexWithWordCount(newTokens))
-print(createInvertedIndexWithLocation(newTokens))
+infilePath = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.1.txt"
+wordDoc = readFile(infilePath)
+wordDoc = removeReferences(wordDoc)
+wordDoc = removeAlphanumericCharacters(wordDoc)
+wordDoc = caseFolding(wordDoc)
+wordTokens = wordTokenisation(wordDoc)
+wordTokens = stopWordsRemoval(wordTokens)
+wordTokens = tokenStemming(wordTokens)
+wordTokens = tokenLemmatization(wordTokens)
+#invertedIndex = createInvertedIndexWithWordCount(wordTokens)
+def sortIndex(invertedIndex):
+	sortedDict = {}
+	sortedKeys = sorted(invertedIndex, key=invertedIndex.get)
+	for w in sortedKeys:
+		sortedDict[w] = invertedIndex[w]
+	return(sortedDict)	
+
+invertedIndex = createInvertedIndexWithLocation(wordTokens)
+print(invertedIndex)   	
+
