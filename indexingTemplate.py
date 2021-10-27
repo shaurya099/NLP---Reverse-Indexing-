@@ -128,10 +128,10 @@ def createInvertedIndexWithLocation(wordTokens):
 	invertedIndex = {}
 	for w in wordTokens: 
 		if w not in invertedIndex.keys():
-			attributesList = []
+			#attributesList = []
 			#print(type(attributesList))
-			attributesList.append("")	
-			invertedIndex[w] = attributesList
+			#attributesList.append("")	
+			invertedIndex[w] = None 
 		'''
 		if w in invertedIndex.keys():
 			index_pos_list = 0
@@ -140,7 +140,7 @@ def createInvertedIndexWithLocation(wordTokens):
 		'''
 	for w in invertedIndex.keys():	
 		index_pos_list = list(locate(wordTokens, lambda a: a == w))
-		invertedIndex[w].append(index_pos_list)
+		invertedIndex[w] = index_pos_list
 	return invertedIndex
 
 infilePath = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.1.txt"
@@ -162,4 +162,5 @@ def sortIndex(invertedIndex):
 
 invertedIndex = createInvertedIndexWithLocation(wordTokens)
 print(invertedIndex)   	
-
+invertedIndex2 = createInvertedIndexWithWordCount(wordTokens)
+print(sortIndex(invertedIndex2))
