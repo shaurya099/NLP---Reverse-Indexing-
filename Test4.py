@@ -4,6 +4,7 @@ import string
 import nltk 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+
 infilePath = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.1.txt"
 
 textDoc = " "
