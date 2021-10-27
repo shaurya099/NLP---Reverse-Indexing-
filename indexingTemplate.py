@@ -18,6 +18,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from collections import OrderedDict
+from more_itertools import locate
 
 #reading a file and storing it in an array 
 def readFile(infilePath):
@@ -131,10 +132,15 @@ def createInvertedIndexWithLocation(wordTokens):
 			#print(type(attributesList))
 			attributesList.append("")	
 			invertedIndex[w] = attributesList
+		'''
 		if w in invertedIndex.keys():
 			index_pos_list = 0
 			index_pos_list = [ i for i in range(len(wordTokens)) if wordTokens[i] == w ]
-			invertedIndex[w].append(index_pos_list)	
+			invertedIndex[w].append(index_pos_list)
+		'''
+	for w in invertedIndex.keys():	
+		index_pos_list = list(locate(wordTokens, lambda a: a == w))
+		invertedIndex[w].append(index_pos_list)
 	return invertedIndex
 
 infilePath = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.1.txt"
