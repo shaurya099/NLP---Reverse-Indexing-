@@ -23,3 +23,5 @@ def updateWordCountIndex(infilePath2, invertedIndex,episode):
 		
 	return invertedIndex
 	
+list1 = [1,2,3,4,5,1]
+print(enumerate(list1))
