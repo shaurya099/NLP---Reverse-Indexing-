@@ -14,7 +14,8 @@ ReadFile(infilePath) -> removeReferences(textDoc) -> removeAlphanumericCharacter
 
 infilePath = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.3.txt" 
 infilePath2 = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.2.txt" 
-
+infilePath3 = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.1.txt"
+list_of_episodes  = [3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,"3.10",3.11,3.12,3.13,3.14,3.15,3.16,3.17,3.18,3.19,"3.20",3.21,3.22,3.23,3.24,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9,"4.10",4.11,4.12,4.13,4.14,4.15,4.16,4.17,4.18,4.19,"4.20",4.21,4.22]
 def readFile(infilePath):
 	textDoc = " "
 	with open(infilePath) as infile:
@@ -108,7 +109,7 @@ def createWordCountIndex(infilePath):
 	invertedIndex = createInvertedIndexWithWordCount(wordTokens)
 	invertedIndex = sortIndex(invertedIndex)
 	return invertedIndex
-
+   
 def createInvertedIndex(infilePath):
 	textDoc = readFile(infilePath)
 	textDoc = removeReferences(textDoc)
@@ -161,7 +162,23 @@ def updateWordCountIndex(infilePath2, invertedIndex):
 			invertedIndex[w] = attributesList 
 	return invertedIndex
 
-inverted_Index = updateWordCountIndex(infilePath2, inverted_Index)
-inverted_Index = sortIndex(inverted_Index)
-print(inverted_Index)
+#inverted_Index = updateWordCountIndex(infilePath2, inverted_Index)
+#inverted_Index = updateWordCountIndex(infilePath3, inverted_Index)
+#inverted_Index = sortIndex(inverted_Index)
+
+#print(inverted_Index)
+#print(len(inverted_Index.keys()))
+
+ 
+for episode in list_of_episodes:
+	pathString = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/{}.txt"
+	print(pathString.format(episode))
+	inverted_Index = updateWordCountIndex(pathString.format(episode), inverted_Index)
+
 print(len(inverted_Index.keys()))
+inverted_Index = sortIndex(inverted_Index)
+print(inverted_Index["wikipedia"])
+
+listt = [1,2]
+print(locate(listt,"1"))
+print(generateTokens(infilePath))
