@@ -78,15 +78,13 @@ def generateTokens(infilePath):
 	return wordTokens
 
 def updateWordCountIndex(infilePath2, invertedIndex):
-	tempIndex = createWordCountIndex(infilePath2)
-	for w in tempIndex.keys():
+	wordTokens = generateTokens(infilePath2)
+	for w in wordTokens: 
 		if w in invertedIndex.keys():
-			invertedIndex[w][0] += 1
-		else: 
-			attributesList = []
-			attributesList.append(1)
-			invertedIndex[w] = attributesList 
-	return invertedIndex
+			invertedIndex[w] = invertedIndex[w] + 1
+		else:
+			invertedIndex[w] = 1
+	return invertedIndex		
 
 def createInvertedIndexWithLocation(wordTokens):
 	invertedIndex = {}
@@ -104,13 +102,9 @@ def createInvertedIndexWithWordCount(wordTokens):
 	invertedIndex = {}
 	for w in wordTokens: 
 		if w not in invertedIndex.keys():
-			attributesList = []
-			#print(type(attributesList))
-			#attributesList.append(wordTokens.index(w))
-			attributesList.append(1)		
-			invertedIndex[w] = attributesList
+			invertedIndex[w] = 1	
 		else:
-			invertedIndex[w][0] += 1 
+			invertedIndex[w] += 1 
 	return invertedIndex
 
 def createWordCountIndex(infilePath):
@@ -137,7 +131,7 @@ def main():
 		pathString = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/{}.txt"
 		invertedIndex = updateWordCountIndex(pathString.format(episode), invertedIndex)
 	
-	print(sortIndex(invertedIndex))
+	print(invertedIndex["wikipedia"])
 
 def main2():
 	infilePathMain = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.1.txt"
@@ -158,9 +152,11 @@ def main2():
 				invertedIndex[item] =[]	
 				invertedIndex[item].append(episodeString.format(episode,position))
 			
-
-	print(invertedIndex)	
-
+	print(invertedIndex["wikipedia"])
+	print(len(invertedIndex["wikipedia"]))	
+	listt = [1,2,3,4,5]
+	print(len(listt))
+main()
 main2()
 
 
