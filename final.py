@@ -131,7 +131,7 @@ def main():
 		pathString = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/{}.txt"
 		invertedIndex = updateWordCountIndex(pathString.format(episode), invertedIndex)
 	
-	print(invertedIndex["wikipedia"])
+	print(sortIndex(invertedIndex))
 
 def main2():
 	infilePathMain = "/Users/shaurya/coding-projects/NLP---Reverse-Indexing-/Simpsons/3.1.txt"
@@ -152,11 +152,51 @@ def main2():
 				invertedIndex[item] =[]	
 				invertedIndex[item].append(episodeString.format(episode,position))
 			
-	print(invertedIndex["wikipedia"])
-	print(len(invertedIndex["wikipedia"]))	
-	listt = [1,2,3,4,5]
-	print(len(listt))
-main()
-main2()
+	return invertedIndex
+				
+invertedIndex = main2()
+#word1 = invertedIndex["michael"]
+#word2 = invertedIndex["schumaker"]
+#print(word1)
+print("----------------")
+#print(word2)
+#print(word1[0].split(":"))
 
+'''
+word1: [4.1:23, 4.2:25]
+word2:[4.1:24, 4.1:55]
+'''
+'''
+tempWord1 = word1[0].split(":")
+print(type(tempWord1[0]))
+matchedEpisodes = set()
+for i in range(len(word1)): 
+	for j in range(len(word2)):
+		proximityDifference = 0
+		tempWord1 = word1[i].split(":")
+		tempWord2 = word2[j].split(":")
+		if tempWord1[0] == tempWord2[0]:
+			proximityDifference = int(tempWord1[1]) - int(tempWord2[1])
+		if abs(proximityDifference) <= 2:
+			matchedEpisodes.add(tempWord1[0])
+		else: 
+			print("no matches found")	
+print(matchedEpisodes)
+'''
+def proximitySearch(invertedIndex, query1, query2):
+	word1 = invertedIndex[query1]
+	word2 = invertedIndex[query2]
+	matchedEpisodes = set()
+	for i in range(len(word1)): 
+		for j in range(len(word2)):
+			proximityDifference = 0
+			tempWord1 = word1[i].split(":")
+			tempWord2 = word2[j].split(":")
+			if tempWord1[0] == tempWord2[0]:
+				proximityDifference = int(tempWord1[1]) - int(tempWord2[1])
+			if abs(proximityDifference) <= 2:
+				matchedEpisodes.add(tempWord1[0])
+		
+	print(matchedEpisodes)
+proximitySearch(invertedIndex,"michael","jackson")
 
